@@ -16,11 +16,12 @@ export const config = {
 
     tables: {
       usuarios: {
-        allowedFilters: ['id', 'email', 'rol', 'lenguaje'],
-        allowedOrderBy: ['id', 'email', 'rol', 'lenguaje'],
+        allowedColumns: ['id', 'email', 'password', 'rol', 'lenguage'],
+        allowedFilters: ['id', 'email', 'rol', 'lenguage'],
+        allowedOrderBy: ['id', 'email', 'rol', 'lenguage'],
         defaultFilters: [
           { field: 'rol', operator: '=', value: 'Backend Developer' },
-          { field: 'lenguaje', operator: '=', value: 'JavaScript' },
+          { field: 'lenguage', operator: '=', value: 'JavaScript' },
         ],
         defaultOrderBy: 'id',
         name: 'usuarios',

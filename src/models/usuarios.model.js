@@ -5,6 +5,7 @@ import { config } from '../../config/project.config.js';
 
 import pool from '../../db/config.db.js';
 
+import safeColumnList from '../helpers/safeColumnList.helper.js';
 import { logger } from '../utils/logger.utils.js';
 
 export const createUsuario = async (usuario) => {
@@ -31,10 +32,17 @@ export const createUsuario = async (usuario) => {
   }
 };
 
-export const findUsuarioByEmail = async (email) => {
+export const findUsuarioByEmail = async (email, columns = ['*']) => {
   try {
-    const table = config.db.tables.usuarios.name;
-    const query = format('SELECT * FROM %I WHERE email = %L', table, email);
+    const { name: table, allowedColumns } = config.db.tables.usuarios;
+
+    const selectedColumns = safeColumnList.build(columns, allowedColumns);
+    const query = format(
+      'SELECT %s FROM %I WHERE email = %L',
+      selectedColumns,
+      table,
+      email
+    );
     logger.info(`Executing query: ${query}`);
 
     const { rows } = await pool.query(query);
