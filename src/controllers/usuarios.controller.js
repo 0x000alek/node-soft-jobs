@@ -21,13 +21,10 @@ export const getUsuarioController = async (req, res) => {
       return res.status(404).json({ message: 'Usuario not found' });
     }
 
-    res.status(200).json({
-      message: 'Usuario fetched successfully',
-      data: [usuario],
-    });
+    res.status(200).json([usuario]);
   } catch (error) {
     logger.error('Error in getUsuarioController:', error);
-    res.status(500).json({ message: 'Internal server error', data: [] });
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
